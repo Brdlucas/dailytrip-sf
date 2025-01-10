@@ -19,6 +19,10 @@ class Rating
     #[ORM\Column(length: 255)]
     private ?string $ip_address = null;
 
+    #[ORM\ManyToOne(inversedBy: 'ratings')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Trip $trip = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +48,18 @@ class Rating
     public function setIpAddress(string $ip_address): static
     {
         $this->ip_address = $ip_address;
+
+        return $this;
+    }
+
+    public function getTrip(): ?Trip
+    {
+        return $this->trip;
+    }
+
+    public function setTrip(?Trip $trip): static
+    {
+        $this->trip = $trip;
 
         return $this;
     }

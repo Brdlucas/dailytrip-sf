@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TripRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -26,11 +28,40 @@ class Trip
     #[ORM\Column(length: 255)]
     private ?string $cover = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 80)]
     private ?string $email = null;
 
     #[ORM\Column]
     private ?bool $status = false;
+
+    /**
+     * @var Collection<int, Rating>
+     */
+    #[ORM\OneToMany(targetEntity: Rating::class, mappedBy: 'trip', orphanRemoval: true)]
+    private Collection $ratings;
+
+    /**
+     * @var Collection<int, Review>
+     */
+    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'trip')]
+    private Collection $reviews;
+
+    #[ORM\OneToOne(inversedBy: 'trip', cascade: ['persist', 'remove'])]
+    private ?gallery $gallery = null;
+
+    #[ORM\ManyToOne(inversedBy: 'trips')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Localisation $localisation = null;
+
+    public function __construct()
+    {
+        $this->ratings = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,6 +136,102 @@ class Trip
     public function setStatus(bool $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rating>
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): static
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings->add($rating);
+            $rating->setTrip($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): static
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getTrip() === $this) {
+                $rating->setTrip(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): static
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+            $review->setTrip($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): static
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getTrip() === $this) {
+                $review->setTrip(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getGallery(): ?gallery
+    {
+        return $this->gallery;
+    }
+
+    public function setGallery(?gallery $gallery): static
+    {
+        $this->gallery = $gallery;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getLocalisation(): ?Localisation
+    {
+        return $this->localisation;
+    }
+
+    public function setLocalisation(Localisation $localisation): static
+    {
+        $this->localisation = $localisation;
 
         return $this;
     }

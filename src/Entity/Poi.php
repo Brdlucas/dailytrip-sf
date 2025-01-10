@@ -16,6 +16,9 @@ class Poi
     #[ORM\Column(length: 255)]
     private ?string $point = null;
 
+    #[ORM\OneToOne(inversedBy: 'poi', cascade: ['persist', 'remove'])]
+    private ?Gallery $gallery = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +32,18 @@ class Poi
     public function setPoint(string $point): static
     {
         $this->point = $point;
+
+        return $this;
+    }
+
+    public function getGallery(): ?Gallery
+    {
+        return $this->gallery;
+    }
+
+    public function setGallery(?Gallery $gallery): static
+    {
+        $this->gallery = $gallery;
 
         return $this;
     }

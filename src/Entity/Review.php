@@ -23,6 +23,10 @@ class Review
     #[ORM\Column(length: 80)]
     private ?string $email = null;
 
+    #[ORM\ManyToOne(inversedBy: 'reviews')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Trip $trip = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +64,18 @@ class Review
     public function setEmail(string $email): static
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getTrip(): ?Trip
+    {
+        return $this->trip;
+    }
+
+    public function setTrip(?Trip $trip): static
+    {
+        $this->trip = $trip;
 
         return $this;
     }
