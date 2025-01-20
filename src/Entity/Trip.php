@@ -40,20 +40,20 @@ class Trip
     #[ORM\OneToMany(targetEntity: Rating::class, mappedBy: 'trip', orphanRemoval: true)]
     private Collection $ratings;
 
+    #[ORM\OneToOne(mappedBy: 'trip', cascade: ['persist', 'remove'])]
+    private ?Gallery $gallery = null;
+
     /**
      * @var Collection<int, Review>
      */
-    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'trip')]
+    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'trip', orphanRemoval: true)]
     private Collection $reviews;
-
-    #[ORM\OneToOne(inversedBy: 'trip', cascade: ['persist', 'remove'])]
-    private ?gallery $gallery = null;
 
     #[ORM\ManyToOne(inversedBy: 'trips')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'trip', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Localisation $localisation = null;
 
@@ -121,7 +121,7 @@ class Trip
         return $this->email;
     }
 
-    public function setEmail(string $email): static
+    public function setEmail(?string $email): static
     {
         $this->email = $email;
 
@@ -170,6 +170,28 @@ class Trip
         return $this;
     }
 
+    public function getGallery(): ?Gallery
+    {
+        return $this->gallery;
+    }
+
+    public function setGallery(?Gallery $gallery): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($gallery === null && $this->gallery !== null) {
+            $this->gallery->setTrip(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($gallery !== null && $gallery->getTrip() !== $this) {
+            $gallery->setTrip($this);
+        }
+
+        $this->gallery = $gallery;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Review>
      */
@@ -196,18 +218,6 @@ class Trip
                 $review->setTrip(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getGallery(): ?gallery
-    {
-        return $this->gallery;
-    }
-
-    public function setGallery(?gallery $gallery): static
-    {
-        $this->gallery = $gallery;
 
         return $this;
     }
