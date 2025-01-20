@@ -16,7 +16,7 @@ class Rating
     #[ORM\Column]
     private ?int $note = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 50)]
     private ?string $ip_address = null;
 
     #[ORM\ManyToOne(inversedBy: 'ratings')]
