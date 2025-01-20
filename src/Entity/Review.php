@@ -14,7 +14,7 @@ class Review
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 80)]
+    #[ORM\Column(length: 120)]
     private ?string $fullname = null;
 
     #[ORM\Column(type: Types::TEXT)]
