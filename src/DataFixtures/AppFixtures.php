@@ -7,6 +7,7 @@ use Faker\Factory;
 use App\Entity\Trip;
 use App\Entity\Category;
 use App\Entity\Localisation;
+use DateTime;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
@@ -43,6 +44,7 @@ class AppFixtures extends Fixture
             $localisation
                 ->setStart($faker->latitude() . ',' . $faker->longitude())
                 ->setFinish($faker->latitude() . ',' . $faker->longitude())
+                ->setDuration($faker->numerify('430'))
                 ->setDistance($faker->numerify('###.###'))
             ;
             $manager->persist($localisation);
