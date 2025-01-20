@@ -21,10 +21,7 @@ class Gallery
     #[ORM\ManyToMany(targetEntity: Image::class, inversedBy: 'galleries')]
     private Collection $images;
 
-    #[ORM\OneToOne(mappedBy: 'gallery', cascade: ['persist', 'remove'])]
-    private ?Poi $poi = null;
-
-    #[ORM\OneToOne(mappedBy: 'gallery', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'gallery', cascade: ['persist', 'remove'])]
     private ?Trip $trip = null;
 
     public function __construct()
@@ -61,28 +58,6 @@ class Gallery
         return $this;
     }
 
-    public function getPoi(): ?Poi
-    {
-        return $this->poi;
-    }
-
-    public function setPoi(?Poi $poi): static
-    {
-        // unset the owning side of the relation if necessary
-        if ($poi === null && $this->poi !== null) {
-            $this->poi->setGallery(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($poi !== null && $poi->getGallery() !== $this) {
-            $poi->setGallery($this);
-        }
-
-        $this->poi = $poi;
-
-        return $this;
-    }
-
     public function getTrip(): ?Trip
     {
         return $this->trip;
@@ -90,16 +65,6 @@ class Gallery
 
     public function setTrip(?Trip $trip): static
     {
-        // unset the owning side of the relation if necessary
-        if ($trip === null && $this->trip !== null) {
-            $this->trip->setGallery(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($trip !== null && $trip->getGallery() !== $this) {
-            $trip->setGallery($this);
-        }
-
         $this->trip = $trip;
 
         return $this;
