@@ -16,7 +16,11 @@ class Poi
     #[ORM\Column(length: 255)]
     private ?string $point = null;
 
-    #[ORM\OneToOne(inversedBy: 'poi', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'pois')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Localisation $location = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?Gallery $gallery = null;
 
     public function getId(): ?int
@@ -32,6 +36,18 @@ class Poi
     public function setPoint(string $point): static
     {
         $this->point = $point;
+
+        return $this;
+    }
+
+    public function getLocation(): ?Localisation
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?Localisation $location): static
+    {
+        $this->location = $location;
 
         return $this;
     }
