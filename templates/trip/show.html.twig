@@ -8,10 +8,164 @@
 {% endblock %}
 
 {% block body %}
-	{{ trip.title }}
-	<br>
-	{{ trip.description }}
-	<br>
-	{{ trip.category.name }}
+	<section class="pt-4 pt-lg-5">
+		<div
+			class="container position-relative">
 
+			<!-- Title and button START -->
+			<div class="row">
+				<div class="col-12">
+					{{ dump(trip) }}
+					<!-- Meta -->
+					<div
+						class="d-md-flex justify-content-md-between">
+						<!-- Title -->
+						<div>
+							<h1 class="fs-2">{{trip.title}}</h1>
+							<ul class="nav nav-divider h6 text-body mb-0">
+								<li class="nav-item">
+									{{ux_icon('mdi:list-box-outline', {'class': 'text-primary h-2 w-2'})}}
+
+									{{trip.category.name}}</li>
+								<li class="nav-item">
+									{{ux_icon('mdi:shoe-print', {'class': 'text-primary h-2 w-2'})}}
+
+									{{trip.localisation.distance}}
+									km</li>
+								{# @TODO : Créer une extentson twig pour afficher les durées après une conversion en heure dès que l'on dépasse 60 minutes #}
+								<li class="nav-item">
+									{{ux_icon('mdi:map-clock-outline', {'class': 'text-primary h-2 w-2'})}}
+									{{trip.localisation.duration}}
+									minutes</li>
+							</ul>
+						</div>
+
+						<!-- Buttons -->
+						<ul
+							class="list-inline text-end">
+							<!-- Heart icon -->
+							<li class="list-inline-item">
+								<a href="#" class="btn btn-sm btn-light px-2">
+									<i class="fa-solid fa-fw fa-heart"></i>
+								</a>
+							</li>
+							<!-- Share icon -->
+							<li
+								class="list-inline-item dropdown">
+								<!-- Share button -->
+								<a href="#" class="btn btn-sm btn-light px-2" role="button" id="dropdownShare" data-bs-toggle="dropdown" aria-expanded="false">
+									<i class="fa-solid fa-fw fa-share-alt"></i>
+								</a>
+								<!-- dropdown button -->
+								<ul class="dropdown-menu dropdown-menu-end min-w-auto shadow rounded" aria-labelledby="dropdownShare">
+									<li>
+										<a class="dropdown-item" href="#">
+											<i class="fab fa-twitter-square me-2"></i>Twitter</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="#">
+											<i class="fab fa-facebook-square me-2"></i>Facebook</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="#">
+											<i class="fab fa-linkedin me-2"></i>LinkedIn</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="#">
+											<i class="fa-solid fa-copy me-2"></i>Copy link</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+			<!-- Title and button END -->
+
+			<!-- Image gallery START -->
+			<div class="row mt-md-5">
+				<div
+					class="col-12">
+					<!-- Primary image -->
+					<div class="splide splide-main mb-3 splide--fade splide--ltr splide--draggable is-active is-overflow is-initialized" data-splide="{&quot;type&quot; : &quot;fade&quot;,&quot;autoplay&quot;: true,&quot;heightRatio&quot;:0.5,&quot;pagination&quot;:false,&quot;arrows&quot;:false,&quot;cover&quot;:true,&quot;lazyLoad&quot;:&quot;sequential&quot;}" id="splide02" role="region" aria-roledescription="carousel">
+						<div class="splide__track splide__track--fade splide__track--ltr splide__track--draggable" id="splide02-track" style="padding-left: 0px; padding-right: 0px;" aria-live="off" aria-atomic="true" aria-busy="false">
+							<ul class="splide__list" id="splide02-list" role="presentation">
+								<li class="splide__slide rounded" id="splide02-slide01" role="group" aria-roledescription="slide" aria-label="1 of 8" style="width: calc(100%); height: 555px; background: url(&quot;{{trip.cover}}&quot;) center center / cover no-repeat; transform: translateX(0%); transition: opacity 400ms cubic-bezier(0.25, 1, 0.5, 1);" aria-hidden="true"><img
+									src="{{trip.cover}}" alt="" style="display: none;">
+									<!-- Glightbox image -->
+									<a href="assets/images/gallery/04.jpg" class="stretched-link" data-glightbox="" data-gallery="banner" tabindex="-1"></a>
+								</li>
+								<li class="splide__slide rounded" id="splide02-slide02" role="group" aria-roledescription="slide" aria-label="2 of 8" style="width: calc(100%); height: 555px; background: url(&quot;https://booking.webestica.com/assets/images/gallery/05.jpg&quot;) center center / cover no-repeat; transform: translateX(-100%); transition: opacity 400ms cubic-bezier(0.25, 1, 0.5, 1);" aria-hidden="true"><img
+									src="{{trip.cover}}" alt="" style="display: none;">
+									<!-- Glightbox image -->
+									<a href="assets/images/gallery/05.jpg" class="stretched-link" data-glightbox="" data-gallery="banner" tabindex="-1"></a>
+								</li>
+								<li class="splide__slide rounded" id="splide02-slide03" role="group" aria-roledescription="slide" aria-label="3 of 8" style="width: calc(100%); height: 555px; background: url(&quot;{{trip.cover}}&quot;) center center / cover no-repeat; transform: translateX(-200%); transition: opacity 400ms cubic-bezier(0.25, 1, 0.5, 1);" aria-hidden="true"><img
+									src="{{trip.cover}}" alt="" style="display: none;">
+									<!-- Glightbox image -->
+									<a href="assets/images/gallery/03.jpg" class="stretched-link" data-glightbox="" data-gallery="banner" tabindex="-1"></a>
+								</li>
+								<li class="splide__slide rounded" id="splide02-slide04" role="group" aria-roledescription="slide" aria-label="4 of 8" style="width: calc(100%); height: 555px; background: url(&quot;https://booking.webestica.com/assets/images/gallery/09.jpg&quot;) center center / cover no-repeat; transform: translateX(-300%); transition: opacity 400ms cubic-bezier(0.25, 1, 0.5, 1);" aria-hidden="true"><img
+									src="{{trip.cover}}" alt="" style="display: none;">
+									<!-- Glightbox image -->
+									<a href="assets/images/gallery/09.jpg" class="stretched-link" data-glightbox="" data-gallery="banner" tabindex="-1"></a>
+								</li>
+								<li class="splide__slide rounded is-prev" id="splide02-slide05" role="group" aria-roledescription="slide" aria-label="5 of 8" style="width: calc(100%); height: 555px; background: url(&quot;https://booking.webestica.com/assets/images/gallery/10.jpg&quot;) center center / cover no-repeat; transform: translateX(-400%); transition: opacity 400ms cubic-bezier(0.25, 1, 0.5, 1);" aria-hidden="true"><img
+									src="{{trip.cover}}" alt="" style="display: none;">
+									<!-- Glightbox image -->
+									<a href="assets/images/gallery/10.jpg" class="stretched-link" data-glightbox="" data-gallery="banner" tabindex="-1"></a>
+								</li>
+								<li class="splide__slide rounded is-active is-visible" id="splide02-slide06" role="group" aria-roledescription="slide" aria-label="6 of 8" style="width: calc(100%); height: 555px; background: url(&quot;https://booking.webestica.com/assets/images/gallery/06.jpg&quot;) center center / cover no-repeat; transform: translateX(-500%); transition: opacity 400ms cubic-bezier(0.25, 1, 0.5, 1);"><img
+									src="{{trip.cover}}" alt="" style="display: none;">
+									<!-- Glightbox image -->
+									<a href="assets/images/gallery/06.jpg" class="stretched-link" data-glightbox="" data-gallery="banner"></a>
+								</li>
+								<li class="splide__slide rounded is-next" id="splide02-slide07" role="group" aria-roledescription="slide" aria-label="7 of 8" style="width: calc(100%); height: 555px; background: url(&quot;https://booking.webestica.com/assets/images/gallery/07.jpg&quot;) center center / cover no-repeat; transform: translateX(-600%); transition: opacity 400ms cubic-bezier(0.25, 1, 0.5, 1);" aria-hidden="true"><img
+									src="assets/images/gallery/07.jpg" alt="" style="display: none;">
+									<!-- Glightbox image -->
+									<a href="assets/images/gallery/07.jpg" class="stretched-link" data-glightbox="" data-gallery="banner" tabindex="-1"></a>
+								</li>
+								<li class="splide__slide rounded" id="splide02-slide08" role="group" aria-roledescription="slide" aria-label="8 of 8" style="width: calc(100%); height: 555px; background: url(&quot;https://booking.webestica.com/assets/images/gallery/08.jpg&quot;) center center / cover no-repeat; transform: translateX(-700%); transition: opacity 400ms cubic-bezier(0.25, 1, 0.5, 1);" aria-hidden="true"><img
+									src="assets/images/gallery/08.jpg" alt="" style="display: none;">
+									<!-- Glightbox image -->
+									<a href="assets/images/gallery/08.jpg" class="stretched-link" data-glightbox="" data-gallery="banner" tabindex="-1"></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!-- Secondary image -->
+					<div class="splide splide-thumb splide--slide splide--ltr splide--draggable splide--nav is-active is-overflow is-initialized" data-splide="{&quot;rewind&quot;:true,&quot;fixedWidth&quot;:200,&quot;fixedHeight&quot;:120,&quot;isNavigation&quot;:true,&quot;gap&quot;:20,&quot;focus&quot;:&quot;center&quot;,&quot;pagination&quot;:false,&quot;cover&quot;:true,&quot;lazyLoad&quot;:&quot;sequential&quot;,&quot;breakpoints&quot;:{&quot;600&quot;:{&quot;fixedWidth&quot;:150,&quot;fixedHeight&quot;:80}}}" id="splide01" role="region" aria-roledescription="carousel">
+						<div class="splide__track splide__track--slide splide__track--ltr splide__track--draggable splide__track--nav" id="splide01-track" style="padding-left: 0px; padding-right: 0px;">
+							<ul class="splide__list" id="splide01-list" role="presentation" style="transform: translateX(-630px);">
+								<li class="splide__slide" id="splide01-slide01" role="button" aria-label="Go to slide 1" style="margin-right: 20px; width: 200px; height: 120px; background: url(&quot;{{trip.cover}}&quot;) center center / cover no-repeat;" tabindex="-1" aria-hidden="true"><img src="assets/images/gallery/04.jpg" alt="" style="display: none;"></li>
+								<li class="splide__slide" id="splide01-slide02" role="button" aria-label="Go to slide 2" style="margin-right: 20px; width: 200px; height: 120px; background: url(&quot;https://booking.webestica.com/assets/images/gallery/05.jpg&quot;) center center / cover no-repeat;" tabindex="-1" aria-hidden="true"><img src="assets/images/gallery/05.jpg" alt="" style="display: none;"></li>
+								<li class="splide__slide" id="splide01-slide03" role="button" aria-label="Go to slide 3" style="margin-right: 20px; width: 200px; height: 120px; background: url(&quot;https://booking.webestica.com/assets/images/gallery/03.jpg&quot;) center center / cover no-repeat;" tabindex="-1" aria-hidden="true"><img src="assets/images/gallery/03.jpg" alt="" style="display: none;"></li>
+								<li class="splide__slide is-visible" id="splide01-slide04" role="button" aria-label="Go to slide 4" style="margin-right: 20px; width: 200px; height: 120px; background: url(&quot;https://booking.webestica.com/assets/images/gallery/09.jpg&quot;) center center / cover no-repeat;" tabindex="0"><img src="assets/images/gallery/09.jpg" alt="" style="display: none;"></li>
+								<li class="splide__slide is-visible is-prev" id="splide01-slide05" role="button" aria-label="Go to slide 5" style="margin-right: 20px; width: 200px; height: 120px; background: url(&quot;https://booking.webestica.com/assets/images/gallery/10.jpg&quot;) center center / cover no-repeat;" tabindex="0"><img src="assets/images/gallery/10.jpg" alt="" style="display: none;"></li>
+								<li class="splide__slide is-visible is-active" id="splide01-slide06" role="button" aria-label="Go to slide 6" style="margin-right: 20px; width: 200px; height: 120px; background: url(&quot;https://booking.webestica.com/assets/images/gallery/06.jpg&quot;) center center / cover no-repeat;" tabindex="0" aria-current="true"><img src="assets/images/gallery/06.jpg" alt="" style="display: none;"></li>
+								<li class="splide__slide is-visible is-next" id="splide01-slide07" role="button" aria-label="Go to slide 7" style="margin-right: 20px; width: 200px; height: 120px; background: url(&quot;https://booking.webestica.com/assets/images/gallery/07.jpg&quot;) center center / cover no-repeat;" tabindex="0"><img src="assets/images/gallery/07.jpg" alt="" style="display: none;"></li>
+								<li class="splide__slide is-visible" id="splide01-slide08" role="button" aria-label="Go to slide 8" style="margin-right: 20px; width: 200px; height: 120px; background: url(&quot;https://booking.webestica.com/assets/images/gallery/08.jpg&quot;) center center / cover no-repeat;" tabindex="0"><img src="assets/images/gallery/08.jpg" alt="" style="display: none;"></li>
+							</ul>
+						</div>
+						<!-- Arrows -->
+						<div class="splide__arrows splide__arrows--ltr">
+							<button class="splide__arrow  splide__arrow--prev p-splide__arrow--prev bg-primary" aria-label="Previous slide" aria-controls="splide01-track">
+								<span class="spi-angle-left text-white">
+									<i class="fa-solid fa-fw fa-angle-left"></i>
+								</span>
+							</button>
+							<button class="splide__arrow splide__arrow--next p-splide__arrow--next bg-primary" aria-label="Next slide" aria-controls="splide01-track">
+								<span class="spi-angle-right text-white">
+									<i class="fa-solid fa-fw fa-angle-right"></i>
+								</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Image gallery END -->
+
+		</div>
+	</section>
 {% endblock %}
