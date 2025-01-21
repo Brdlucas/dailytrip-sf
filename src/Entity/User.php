@@ -62,8 +62,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Image>
      */
-    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'user')]
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'user', orphanRemoval: true)]
     private Collection $images;
+
 
     public function __construct()
     {
