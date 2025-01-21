@@ -8,12 +8,25 @@
 {% endblock %}
 
 {% block body %}
-	{% for item in trips %}
-		{{ item.title }}
-		<br>
-		{{ item.category.name }}
-		<br>
-		<a href={{path('app_trip', {'ref': item.ref} )}}>voir</a>
-		<hr>
-	{% endfor %}
-{% endblock %}
+	<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 p-5">
+		{% for item in trips %}
+			<div class="col">
+				<div class="card shadow-sm">
+					<img src="{{item.cover}}" alt="{{item.title}}" class="card-img-top" height="255" width="100%">
+					<div class="card-body">
+						<p class="card-text">{{item.description ? item.description|slice(0, 30): ''}}...</p>
+						<div class="d-flex justify-content-between align-items-center">
+							<div class="btn-group">
+								<a href={{ path('app_trip', {'ref': item.ref } ) }} class="btn btn-sm btn-outline-secondary">Découvrire</a>
+								{% if app.user %}
+
+									<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+								{% endif %}
+							</div>
+							<small class="text-body-secondary">9 mins</small>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	{% endblock %}
