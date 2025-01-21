@@ -8,6 +8,10 @@
 {% endblock %}
 
 {% block body %}
-	{{ dump(trip) }}
+	{{ trip.title }}
+	<br>
+	{{ trip.description }}
+	<br>
+	{{ trip.category.name }}
 
 {% endblock %}
