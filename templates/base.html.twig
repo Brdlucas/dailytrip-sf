@@ -23,14 +23,12 @@
 		{% endblock %}
 
 	</head>
-
 	<body>
 		{% for message in app.flashes('error') %}
 			<div class="alert alert-danger" role="alert">{{message}}</div>
 		{% endfor %}
-		<div class="container"> {% block body %}{% endblock %}
+		<div class=""> {% block body %}{% endblock %}
 			</div>
 		</body>
-
 	</html>
 </html>
