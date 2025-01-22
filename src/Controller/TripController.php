@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Repository\TripRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 
@@ -15,14 +17,21 @@ use Symfony\Component\Routing\Attribute\Route;
 class TripController extends AbstractController
 {
     #[Route('/trips', name: 'app_trips', methods: ['GET'])]
-    public function index(TripRepository $tr): Response
-    {
+    public function index(
+        TripRepository $tr, // Utilisation des méthodes pour la BDD
+        PaginatorInterface $paginator, // Utilisation  des méthodes pour la BDD
+        Request $request // permt de cibler la page demandée
+    ): Response {
+
+        $pagination = $paginator->paginate(
+            $tr->findAll(), /* query NOT result */
+            $request->query->getInt('page', 1), /* page number */
+            18 /* limit per page */
+        );
+
+
         return $this->render('trip/index.html.twig', [
-            'trips' => $tr->findBy(
-                [],
-                ['id' => 'ASC'],
-                10
-            ), // Récupère toute les trips
+            'trips' => $pagination,
             'title' => 'Trips',
             'description' => 'Les trips disponilbes sur la plateforme. 100% made by you !'
         ]);
