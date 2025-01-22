@@ -9,8 +9,11 @@ import "./styles/style.css";
 import "./styles/app.css";
 
 // Nouvelle librairies et fonctions
+import "./js/tiny-slider.js";
 import "./js/splide.min.js";
 import "./js/glightbox.js";
 import "./js/functions.js";
+import "./js/choices.min.js";
+import "./js/flatpickr.min.js";
 
 console.log("This log comes from assets/app.js - welcome to AssetMapper! 🎉");
