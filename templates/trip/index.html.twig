@@ -23,9 +23,9 @@
 								<a href={{ path('app_trip', {'ref': item.ref } ) }} class="btn btn-sm btn-outline-secondary">Découvrire</a>
 								{% if app.user == item.author %}
 									{# si l'user est le propriétaire du trip #}
-									<button type="button" class="btn btn-sm btn-outline-secondary">
+									<a href={{ path('app_trip_edit', {'ref': item.ref} )}} class="btn btn-sm btn-outline-secondary">
 										{{ux_icon('mdi:pencil', {'class': 'w-1 h-1'})}}
-										Edit</button>
+										Edit</a>
 								{% endif %}
 							</div>
 							<small class="text-body-secondary">{{item.localisation.distance}}
